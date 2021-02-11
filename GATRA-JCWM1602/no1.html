@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No. 1 - Pattern</title>
+</head>
+<body>
+    <h1>PATTERN</h1>
+    <input type="text" name="" id="input" placeholder="masukan angka">
+    <br><br>
+    <input type="button" value="GANJIL" id="ganjil">
+    <input type="button" value="HURUF" id="huruf">
+    <h1>RESULT :</h1>
+    <h3 id="output"></h3>
+    <h3 id="output"></h3>
+    <h3 id="output"></h3>
+    <h3 id="output"></h3>
+</body>
+<script>
+    function patternGanjil(){
+        let input = document.getElementById('input').value
+        let angka = 1
+        let h3 = document.getElementsByTagName('h3')
+
+        if(input > 4 || input < 0 || isNaN(input) == true){
+            alert('Input Berupa Angka! Maksimal 4 & Tidak Boleh Negatif!')
+            document.getElementById('input').value = ''
+        }else{
+            for(let a = 1; a <= input; a ++){
+                let output = ''
+                for(let b = 1; b <= a; b++){
+                    if(angka % 2 != 0){
+                        output += `${angka} `
+                        angka += 2
+                        h3[a-1].innerHTML = output
+                    }
+                }
+                output += `\n`
+            }
+        }
+    }
+    
+    let ganjil = document.getElementById('ganjil')
+    ganjil.addEventListener('click', patternGanjil)
+
+    function patternHuruf(){
+        let input = document.getElementById('input').value
+        let angka = 66
+        let h3 = document.getElementsByTagName('h3')
+
+        if(input > 4 || input < 0 || isNaN(input) == true){
+            alert('Input Berupa Angka! Maksimal 4 & Tidak Boleh Negatif!')
+            document.getElementById('input').value = ''
+        }else{
+            for(let a = 1; a <= input; a ++){
+                let output = ''
+                for(let b = 1; b <= a; b++){
+                    if(angka % 2 == 0){
+                        output += `${String.fromCharCode(angka)} `
+                        angka += 2
+                        h3[a-1].innerHTML = output
+                    }
+                }
+                output += `\n`
+            }
+        }
+    }
+
+    let huruf = document.getElementById('huruf')
+    huruf.addEventListener('click', patternHuruf)
+</script>
+</html>

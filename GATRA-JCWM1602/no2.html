@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No. 2 - Deret Fibonacci</title>
+</head>
+<body>
+    <h1>DERET FIBONACCI</h1>
+    <label for="">Masukkan angka</label>
+    <input type="text" name="" id="input" placeholder="masukkan angka">
+    <br><br>
+    <input type="button" value="Show" id="submit-button">
+    <input type="button" value="Ganjil" id="ganjil-button">
+    <input type="button" value="Genap" id="genap-button">
+    <h1>RESULT</h1>
+    <h3 id="output"></h3>
+</body>
+<script>
+    function fibonacci(){
+        let inputString = document.getElementById('input').value
+        let input = Number(inputString)
+        let arr = [0,1]
+        let total = 0
+        let index = 0
+
+        if(inputString < 0 || isNaN(inputString) == true){
+            alert('Masukkan Bilangan Positif!')
+            inputString = ''    
+        }else{
+            for(let a = 1; a <= input; a++){
+                if(arr[a]+arr[a-1] > input){
+                    a = input+1
+                }else{
+                    arr.push(arr[a]+arr[a-1])
+                }
+            }
+            let output = arr.join(', ')
+            document.getElementById('output').innerHTML = output
+            return arr
+        }
+    }
+    let submitButton = document.getElementById('submit-button')
+    submitButton.addEventListener('click', fibonacci)
+
+    function hitungGanjil(){
+        let inputString = document.getElementById('input').value
+        let arrFibo = fibonacci()
+        let hasil = 0
+        let stringOutput = ''
+
+        if(inputString < 0 || isNaN(inputString) == true){
+            alert('Masukkan Bilangan Positif!')
+            inputString = ''
+        }else{
+            for(let a = 0; a < arrFibo.length; a++){
+                if(arrFibo[a] % 2 != 0){
+                    hasil += arrFibo[a]
+                    if(a == 0){
+                        stringOutput += ``
+                    }
+                    else if(a > 0 && a != arrFibo[arrFibo.length-1] || arrFibo.length > 1){
+                        stringOutput += ` ${arrFibo[a]} +`
+                    }
+                }
+            }
+            
+            stringOutput = stringOutput.slice(0 ,stringOutput.length-1)
+            stringOutput += ` = ${hasil}`
+            document.getElementById('output').innerHTML = stringOutput
+        }
+
+    }
+    let ganjilButton = document.getElementById('ganjil-button')
+    ganjilButton.addEventListener('click', hitungGanjil)
+
+    function hitungGenap(){
+        let inputString = document.getElementById('input').value
+        let arrFibo = fibonacci()
+        let hasil = 0
+        let stringOutput = '0 + '
+
+        if(inputString < 0 || isNaN(inputString) == true){
+            alert('Masukkan Bilangan Positif!')
+            inputString = ''
+        }else{
+            for(let a = 0; a < arrFibo.length; a++){
+                if(arrFibo[a] % 2 == 0){
+                    hasil += arrFibo[a]
+                    if(a == arrFibo.length-1 || arrFibo[a+1] > inputString){
+                        stringOutput += ` ${arrFibo[a]} `
+                    }
+                    else if(a > 0 && a != arrFibo[arrFibo.length-1] || arrFibo.length > 1){
+                        stringOutput += ` ${arrFibo[a]} +`
+                    }
+                }
+            }
+            stringOutput = stringOutput.slice(0 ,stringOutput.length-1)
+            stringOutput += ` = ${hasil}`
+            document.getElementById('output').innerHTML = stringOutput
+        }
+    }
+
+    let genapButton = document.getElementById('genap-button')
+    genapButton.addEventListener('click', hitungGenap)
+</script>
+</html>

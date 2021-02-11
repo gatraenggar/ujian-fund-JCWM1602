@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No. 3 - Tabel</title>
+    <style>
+        #table, th{
+            border: 1px solid black;
+        }
+        td{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <h1>FORM USERS</h1>
+
+        <input type="text" name="" class="input" id="" placeholder="username">
+        <input type="email" name="" class="input" id="" placeholder="email">
+
+        <label for="">role</label>
+        <select class="input" name="" id="">
+            <option value="user">user</option>
+            <option value="admin">admin</option>
+        </select>
+        <br><br>
+
+        <input type="button" id="add-user" value="ADD USER">
+    </fieldset>
+    <br>
+
+    <fieldset>
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+        </table>
+    </fieldset>
+</body>
+<script>
+    let usersData = [
+        {username: 'alee', email: 'alee@gmail.com', role: 'admin'},
+        {username: 'jennie', email: 'jenniebp@gmail.com', role: 'user'},
+        {username: 'elsa', email: 'elsa@disney.com', role: 'user'}
+    ]
+
+    function showUsersData(index){
+
+        let getTable = document.getElementById('table')
+        let getTbody = document.getElementsByTagName('tbody')[0]
+        let tr = ``
+
+        for(let a = 0; a < usersData.length; a++){
+            if(index == a){
+                tr += `
+                    <tr>
+                        <td>#</td>
+                        <td><input type="text" name="" class="edit" id="" placeholder="username"></td>
+                        <td><input type="email" name="" class="edit" id="" placeholder="email"></td>
+                        <td>
+                            <select class="edit" name="" id="">
+                                <option value="user">user</option>
+                                <option value="admin">admin</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="button" value="SAVE" onClick="editUser(${a})">
+                            <input type="button" value="CANCEL" onClick="showUsersData()">
+                        </td>
+                    </tr>
+                `
+            }else{
+                tr += `
+                    <tr>
+                        <td>${a+1}</td>
+                        <td>${usersData[a].username}</td>
+                        <td>${usersData[a].email}</td>
+                        <td>${usersData[a].role}</td>
+                        <td>
+                            <input type="button" value="EDIT" onClick="showUsersData(${a})">
+                            <input type="button" value="DELETE" onClick="deleteUser(${a})">
+                        </td>
+                    </tr>
+                `   
+            }
+
+        }
+        getTbody.innerHTML = tr
+    }
+
+    showUsersData()
+
+    function addUser(){
+        let input = document.getElementsByClassName('input')
+
+        let username = input[0].value
+        let email = input[1].value
+        let role = input[2].value
+        console.log(role)
+
+        if(username && email){
+            usersData.push(
+                {
+                    username: username,
+                    email: email,
+                    role: role
+                }
+            )
+            alert('Data Berhasil Ditambahkan!')
+            showUsersData()
+            username = ''
+            email = ''
+            
+        }else{
+            alert('Input Masih Kosong!')
+        }
+    }
+
+    let addUserButton = document.getElementById('add-user')
+    addUserButton.addEventListener('click', addUser)
+
+    function editUser(index){
+        let input = document.getElementsByClassName('edit')
+
+        let username = input[0].value
+        let email = input[1].value
+        let role = input[2].value
+        console.log(role)
+
+        if(username && email){
+            usersData[index].username = username
+            usersData[index].email = email
+            usersData[index].role = role
+
+            showUsersData()
+            // username = ''
+            // email = ''
+            
+        }else{
+            alert('Input Masih Kosong!')
+        }
+        showUsersData(a)
+    }
+
+    function deleteUser(index){
+        let confirmed = confirm('Yakin Ingin Menghapus Data User Ini?')
+
+        if(confirmed){
+            usersData.splice(index, 1)
+            showUsersData()
+            alert('Berhasil Menghapus Data User!')
+        }
+    }
+</script>
+</html>
